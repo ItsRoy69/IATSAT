@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "iATSAT",
-    "slug": "iATSAT",
+    "name": "NFT-Marketplace",
+    "slug": "NFT-Marketplace",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
