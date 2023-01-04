@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -11,14 +11,16 @@ import {
   FlatList,
   Dimensions,
   TouchableOpacity,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import COLORS from '../../consts/colors';
-import places from '../../consts/places';
+  Image,
+} from "react-native";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import COLORS from "../../consts/colors";
+import products from "../../consts/products";
+import blogs from "../../consts/blogs";
 
-const {width} = Dimensions.get('screen');
+const { width } = Dimensions.get("screen");
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   // const categoryIcons = [
   //   <Icon name="settings" size={25} color={COLORS.primary} />,
   //   <Icon name="beach-access" size={25} color={COLORS.primary} />,
@@ -37,118 +39,165 @@ const HomeScreen = ({navigation}) => {
   //   );
   // };
 
-  const Card = ({place}) => {
+  const Card = ({ place }) => {
     return (
-      <TouchableOpacity
-        activeOpacity={1.8}
-        onPress={() => navigation.navigate('DetailsScreen', place)}>
-        <View style={style.cardImage}>
-          <View style={style.cardText}>
-            <Icon name={place.icon} size={25} color={COLORS.sky} style={{paddingTop:2, paddingLeft:2 }}/>
-            <Text
-              style={{
-                color: COLORS.white,
-                fontSize: 20,
-                fontWeight: 'regular',  
-              }}>
-              {place.name}
-            </Text>
-          </View>
-          <Text style={{
-                color: COLORS.white,
-                fontSize: 14,
-                fontWeight: 'regular',
-                marginTop: 24,
-              }}>
-            {place.details}
+      <View style={style.cardImage}>
+        <View style={style.cardText}>
+          <Icon
+            name={place.icon}
+            size={25}
+            color={COLORS.sky}
+            style={{ paddingTop: 2, paddingLeft: 2 }}
+          />
+          <Text
+            style={{
+              color: COLORS.white,
+              fontSize: 14,
+              fontWeight: "bold",
+              padding: 5,
+            }}
+          >
+            {place.name}
           </Text>
         </View>
-        
-      </TouchableOpacity>
+        <Text
+          style={{
+            color: COLORS.white,
+            fontSize: 12,
+            fontWeight: "regular",
+            marginTop: 24,
+          }}
+        >
+          {place.details}
+        </Text>
+        <TouchableOpacity
+          activeOpacity={1.8}
+          onPress={() => navigation.navigate("OlympiadScreen", place)}
+        >
+          <View style={{ width: "50%", flexDirection: "row", marginTop: 15 }}>
+            <View style={style.butn}>
+              <Text style={{ fontWeight: "bold", color: "white" }}>
+                Explore
+              </Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   };
 
-  const RecommendedCard = ({place}) => {
+  const RecommendedCard = ({ place, blogs }) => {
     return (
-      <ImageBackground style={style.rmCardImage} source={place.image}>
+      <ImageBackground
+        style={[style.rmCardImage, style.shadowProp]}
+        source={place.image}
+      >
         <Text
           style={{
             color: COLORS.white,
             fontSize: 22,
-            fontWeight: 'bold',
+            fontWeight: "bold",
             marginTop: 10,
-          }}>
+          }}
+        >
           {place.name}
         </Text>
         <View
           style={{
             flex: 1,
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
-          }}>
-          <View style={{width: '100%', flexDirection: 'row', marginTop: 10}}>
-            <View style={{flexDirection: 'row'}}>
-              <Icon name="place" size={22} color={COLORS.white} />
-              <Text style={{color: COLORS.white, marginLeft: 5}}>
-                {place.location}
-              </Text>
-            </View>
-            <View style={{flexDirection: 'row'}}>
-              <Icon name="star" size={22} color={COLORS.white} />
-              <Text style={{color: COLORS.white, marginLeft: 5}}>5.0</Text>
-            </View>
-          </View>
-          <Text style={{color: COLORS.white, fontSize: 13}}>
+            justifyContent: "space-between",
+            alignItems: "flex-end",
+          }}
+        >
+          <Text
+            style={{ color: COLORS.black, fontSize: 13, fontWeight: "bold" }}
+          >
             {place.details}
           </Text>
+        </View>
+        <View style={{ width: "100%", flexDirection: "row", marginTop: 10 }}>
+          <View style={style.btn}>
+            <Text style={{ fontWeight: "bold" }}>Read More</Text>
+          </View>
         </View>
       </ImageBackground>
     );
   };
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.white}}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.white }}>
       <StatusBar translucent={false} backgroundColor={COLORS.dark} />
       <View style={style.header}>
         <Icon name="sort" size={28} color={COLORS.white} />
-        <Icon name="notifications-none" size={28} color={COLORS.white} />
+        <Image
+          source={require("../../assets/logo.png")}
+          resizeMode="contain"
+          style={{ width: 120, height: 80, marginTop: -20 }}
+        />
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View
-          style={{
-            backgroundColor: COLORS.dark,
-            height: 120,
-            paddingHorizontal: 20,
-          }}>
-          <View style={{flex: 1}}>
-            <Text style={style.headerTitle}>Our Products</Text>
-            <Text style={style.headerPara}>IATSAT is building and connecting some of the best products in the educational domain, portable and accessible across the globe.</Text>
-            <View style={style.inputContainer}>
-              <Icon name="search" size={28} />
-              <TextInput
-                placeholder="Search "
-                style={{color: COLORS.grey}}
-              />
-            </View>
+      <View
+        style={{
+          backgroundColor: COLORS.dark,
+          height: 40,
+          paddingHorizontal: 20,
+        }}
+      >
+        <View style={{ flex: 1 }}>
+          <View style={style.inputContainer}>
+            <Icon name="search" size={28} />
+            <TextInput placeholder="Search" style={{ color: COLORS.grey }} />
           </View>
         </View>
-        {/* <ListCategories /> */}
-        <Text style={style.sectionTitle}>Products</Text>
+      </View>
+      {/* <ListCategories /> */}
+
+      <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 0 }}>
+        <Text style={style.sectionTitle}>Our Mission</Text>
+        <Text style={style.headerPara}>
+          Education is an essential element of our 2035 programme . Our aim is
+          to provide free quality education to the last sector of society
+          irrespective of their socio-economic condition.’ with an aim of
+          transforming India with resource-based learning as opposed to the
+          traditional teaching methodologies. We have envisioned a society where
+          individuals and entire communities have access to the knowledge,
+          resources and opportunities necessary to build a more prosperous
+          future
+        </Text>
+
+        <Text style={style.sectionTitle2}>Our Vision</Text>
+        <Text style={style.headerPara}>
+          Our vision is shaping global priorities for the future with a belief
+          of experiential learning for the prehensive role and scope of
+          education. We have the vision of free quality education for every
+          sector of society. With this mission of empowering the community with
+          exponential growth of resource-based learning, based on a sense of
+          developing economic independence in Education. We aim to work directly
+          with the schools to achieve this objective.teaching methodologies. We
+          have envisioned a society where individuals and entire communities
+          have access to the knowledge, resources and opportunities necessary to
+          build a more prosperous future.
+        </Text>
+
+        <Text style={style.sectionTitle3}>Our Products</Text>
+        <Text style={style.headerPara}>
+          IATSAT is building and connecting some of the best products in the
+          educational domain, portable and accessible across the globe.
+        </Text>
         <View>
           <FlatList
-            contentContainerStyle={{paddingLeft: 20}}
+            contentContainerStyle={{ paddingLeft: 20 }}
             horizontal
             showsHorizontalScrollIndicator={false}
-            data={places}
-            renderItem={({item}) => <Card place={item} />}
+            data={products}
+            renderItem={({ item }) => <Card place={item} />}
           />
-          <Text style={style.sectionTitle}>Recommended</Text>
+          <Text style={style.sectionTitle}>Latest Blogs</Text>
           <FlatList
             snapToInterval={width - 20}
-            contentContainerStyle={{paddingLeft: 20, paddingBottom: 20}}
+            contentContainerStyle={{ paddingLeft: 20, paddingBottom: 20 }}
             showsHorizontalScrollIndicator={false}
             horizontal
-            data={places}
-            renderItem={({item}) => <RecommendedCard place={item} />}
+            data={blogs}
+            renderItem={({ item }) => <RecommendedCard place={item} />}
           />
         </View>
       </ScrollView>
@@ -158,39 +207,57 @@ const HomeScreen = ({navigation}) => {
 
 const style = StyleSheet.create({
   header: {
-    paddingVertical: 20,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    paddingVertical: 10,
+    paddingHorizontal: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
     backgroundColor: COLORS.dark,
+  },
+  btn: {
+    height: 50,
+    width: 120,
+    backgroundColor: COLORS.white,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  butn: {
+    height: 30,
+    width: 100,
+    backgroundColor: COLORS.sky,
+    color: COLORS.white,
+    borderRadius: 2,
+    justifyContent: "center",
+    alignItems: "center",
   },
   headerTitle: {
     color: COLORS.white,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 23,
   },
   headerPara: {
     color: COLORS.grey,
-    fontWeight: 'light',
+    fontWeight: "light",
     fontSize: 12,
+    marginHorizontal: 20,
+    marginBottom: 20,
   },
   inputContainer: {
     height: 60,
-    width: '100%',
+    width: "100%",
     backgroundColor: COLORS.white,
     borderRadius: 10,
-    position: 'absolute',
-    top: 90,
-    flexDirection: 'row',
+    top: 0,
+    flexDirection: "row",
     paddingHorizontal: 20,
-    alignItems: 'center',
+    alignItems: "center",
     elevation: 12,
   },
   categoryContainer: {
-    marginTop: 60,
+    marginTop: 30,
     marginHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
   // iconContainer: {
   //   height: 60,
@@ -202,17 +269,29 @@ const style = StyleSheet.create({
   // },
   sectionTitle: {
     marginHorizontal: 20,
-    marginVertical: 20,
-    fontWeight: 'bold',
-    fontSize: 20,
     marginTop: 40,
+    marginBottom: 10,
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  sectionTitle2: {
+    marginHorizontal: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+    fontSize: 20,
+  },
+  sectionTitle3: {
+    marginHorizontal: 20,
+    fontWeight: "bold",
+    fontSize: 20,
+    marginBottom: 10,
   },
   cardImage: {
-    height: 230,
-    width: 190,
+    height: 200,
+    width: 200,
     marginRight: 20,
     padding: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
     borderRadius: 3,
     backgroundColor: COLORS.deepgrey,
   },
@@ -221,13 +300,15 @@ const style = StyleSheet.create({
     height: 200,
     marginRight: 20,
     borderRadius: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
     padding: 10,
+    boxShadow: "0px 0px 15px 0px rgba(0, 0, 0, 0.1)",
   },
   cardText: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: 4,
+  },
 });
 export default HomeScreen;

@@ -5,6 +5,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import OnBoardScreen from './src/views/screens/OnBoardScreen';
 import HomeScreen from './src/views/screens/HomeScreen';
 import DetailsScreen from './src/views/screens/DetailsScreen';
+import OlympiadScreen from './src/views/screens/OlympiadScreen';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -14,6 +16,7 @@ const App = () => {
         <Stack.Screen name="OnBoardScreen" component={OnBoardScreen} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
         <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+        <Stack.Screen name="OlympiadScreen" component={OlympiadScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
